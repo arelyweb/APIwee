@@ -4,17 +4,28 @@
       <mat-card-title>Login</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <form class="login-form" (submit)="onSubmit()">
+      <form class="login-form"(click)="login()">
         <mat-form-field appearance="fill">
-          <mat-label>Username</mat-label>
-          <input matInput type="text"  name="username" required>
-          <mat-error *ngIf="">Username is required</mat-error>
+          <mat-label>User</mat-label>
+         <input
+            type="email"
+            [(ngModel)]="email"
+            name="email"
+            placeholder="Email"
+            required="required"
+          />
         </mat-form-field>
         <mat-form-field appearance="fill">
           <mat-label>Password</mat-label>
           <!-- <input matInput type="password" [(ngModel)]="password" name="password" required> -->
-          <input matInput type="password" name="password" required>
-          <mat-error *ngIf="">Password is required</mat-error>
+                <input
+            type="password"
+            [(ngModel)]="password"
+            name="password"
+            placeholder="Password"
+            required="required"
+          />
+          <!-- <mat-error *ngIf="">Password is required</mat-error> -->
         </mat-form-field>
         <button mat-raised-button color="primary" type="submit">Log In</button>
       </form>

@@ -12,8 +12,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {FormsModule} from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import { AppRoutingModule } from './app.routes';
-
+import { provideHttpClient } from '@angular/common/http';
 
 
 // ... other imports ...
@@ -34,10 +33,10 @@ import { AppRoutingModule } from './app.routes';
      MatInputModule,
      MatFormFieldModule,
      FormsModule,
-     BrowserModule,
-     AppRoutingModule
+     BrowserModule
     // ... other modules
   ],
+  providers: [provideHttpClient()],
   // ...
 })
 export class AppModule { }

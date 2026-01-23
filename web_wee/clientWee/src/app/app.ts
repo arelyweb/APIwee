@@ -1,5 +1,6 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit,Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+
 interface Policy {
   Id_policy: number;
   Id_client: number;
@@ -14,17 +15,19 @@ interface Policy {
   selector: 'app-root',
   templateUrl: './app.html',
   styleUrl: './app.css',
-  standalone: false,
 })
+
+@Injectable({providedIn: 'root'})
+
 export class App implements OnInit{
+  private http = inject(HttpClient);
    public _policy: Policy[] = [];
-   constructor(private http: HttpClient) {}
 
      ngOnInit() {
-    this.getForecasts();
+    this.getPolicy();
   }
 
-    getForecasts() {
+    getPolicy() {
     this.http.get<Policy[]>('/api/policy').subscribe(
       (result) => {
         this._policy = result;

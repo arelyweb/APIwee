@@ -24,8 +24,6 @@ namespace API_wee
             // Configure the HTTP request pipeline.
 
             app.UseAuthorization();
-
-
             app.MapControllers();
 
             app.Run();
