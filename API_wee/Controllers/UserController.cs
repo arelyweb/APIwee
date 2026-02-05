@@ -1,6 +1,5 @@
 ﻿using API_wee.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -27,17 +26,18 @@ namespace API_wee.Controllers
         }
 
         // GET api/<UserController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [HttpGet("{userName}")]
+        public string Get(string userName)
         {
             return "value";
         }
 
-        // POST api/<UserController>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
+        //// POST api/<UserController>/authenticate
+        //[HttpPost]
+        //[Route("authenticate")]
+        //public IHttpActionResult Authenticate([FromBody] string value)
+        //{
+        //}
 
         // PUT api/<UserController>/5
         [HttpPut("{id}")]
