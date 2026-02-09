@@ -18,9 +18,9 @@ namespace API_wee.Controllers
        
         // GET: api/<UserController>
         [HttpGet]
-        public IEnumerable<User> Get()
+        public IEnumerable<ApplicationUser> Get()
         {
-            var userWithA = _context.User.Where(s => s.LastNameUser == "Gonzalez").ToList(); // Query executed by .ToList()
+            var userWithA = _context.User.Where(s => s.LastName == "Gonzalez").ToList(); // Query executed by .ToList()
 
             return userWithA;
         }

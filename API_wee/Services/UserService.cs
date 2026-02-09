@@ -20,7 +20,7 @@ namespace API_wee.Services
         // Autentica: busca por username y verifica el password contra el hash
         public async Task<ApplicationUser?> AuthenticateAsync(string username, string password)
         {
-            var user = await _db.User.SingleOrDefaultAsync(u => u.UserName == username);
+            var user = await _db.User.FirstOrDefaultAsync(n=> n.UserName == username);
             if (user == null) return null;
 
             var verifyResult = _passwordHasher.VerifyHashedPassword(user, user.PasswordHash, password);
@@ -42,7 +42,7 @@ namespace API_wee.Services
         }
 
         // Crea usuario: genera hash y guarda
-        public async Task<ApplicationUser> CreateUserAsync(string username, string lastname, string password, int roleId)
+        public async Task<ApplicationUser> CreateUserAsync(string username, string lastname, string password, short roleId)
         {
             var user = new ApplicationUser
             {

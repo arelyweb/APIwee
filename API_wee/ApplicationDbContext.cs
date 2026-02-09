@@ -12,7 +12,7 @@ namespace API_wee
         public ApplicationDbContext() { }
 
         // DbSet properties represent tables in the database
-        public DbSet<User> User { get; set; }
+        public DbSet<ApplicationUser> User { get; set; }
         public DbSet<Policy> Policy { get; set; }
     }
 }

@@ -21,7 +21,8 @@ namespace API_wee.Services
             var jwt = _config.GetSection("Jwt");
             _issuer = jwt.GetValue<string>("Issuer")!;
             _audience = jwt.GetValue<string>("Audience")!;
-            _key = jwt.GetValue<string>("Key")!;
+            _key = GenerateRandomKey();
+            //_key = jwt.GetValue<string>("Key")!;
             _accessTokenMinutes = jwt.GetValue<int>("AccessTokenExpirationMinutes");
         }
 
@@ -35,6 +36,11 @@ namespace API_wee.Services
             };
 
             claims.Add(new Claim(ClaimTypes.Role, Convert.ToString(  user.RoleId)));
+
+            if (string.IsNullOrEmpty(_key) || _key.Length < 32)
+            {
+                throw new InvalidOperationException("The JWT_SECRET_KEY must be at least 32 characters long.");
+            }
 
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_key));
@@ -98,6 +104,16 @@ namespace API_wee.Services
             {
                 return null;
             }
+        }
+
+        public string GenerateRandomKey(int length = 32)
+        {
+            var key = new byte[length];
+            using (var rng = RandomNumberGenerator.Create())
+            {
+                rng.GetBytes(key);
+            }
+            return Convert.ToBase64String(key); // Store this securely
         }
     }
 }

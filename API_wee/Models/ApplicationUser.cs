@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace API_wee.Models
 {
-    [Table("users")]
+    [Table("user")]
     public class ApplicationUser
     {
         [Key]
@@ -11,7 +11,7 @@ namespace API_wee.Models
         public int IdUser { get; set; }
 
         [Column("id_rol")]
-        public int RoleId { get; set; }
+        public short RoleId { get; set; }
 
         [Column("nameuser")]
         public string UserName { get; set; } = null!;
