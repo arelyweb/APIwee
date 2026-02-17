@@ -1,6 +1,12 @@
 import { bootstrapApplication } from '@angular/platform-browser';
-import {provideZoneChangeDetection} from '@angular/core';
+import { importProvidersFrom } from '@angular/core';
+import { RouterModule,  withViewTransitions } from '@angular/router';
 import { App } from './app/app';
+import { routing } from './app/app.routes';
 bootstrapApplication(App, {
-  providers: [provideZoneChangeDetection({eventCoalescing: true})],
+  providers: [
+    importProvidersFrom(
+      RouterModule.forRoot(routing,{enableViewTransitions: true}), 
+    ),
+  ]
 }).catch((err) => console.error(err));

@@ -1,0 +1,23 @@
+<mat-card style="max-width:400px;margin:24px auto;padding:16px">
+      <h2>Register system</h2>
+      <form [formGroup]="myGroup"  (ngSubmit)="submit()">
+        <mat-form-field appearance="fill" style="width:100%">
+          <mat-label>User</mat-label>
+          <input matInput formControlName="userName" type="text" />
+        </mat-form-field>
+        <mat-form-field appearance="fill" style="width:100%">
+          <mat-label>Lastname</mat-label>
+          <input matInput formControlName="lastName" type="text" />
+        </mat-form-field>
+        <mat-form-field appearance="fill" style="width:100%">
+          <mat-label>Password</mat-label>
+          <input matInput formControlName="password" type="password" />
+        </mat-form-field>
+
+        <div style="text-align:right">
+          <button mat-raised-button color="primary" type="submit" [disabled]="!myGroup.valid">Register</button>
+        </div>
+      </form>
+
+      
+    </mat-card>
