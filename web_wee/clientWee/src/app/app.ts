@@ -1,46 +1,39 @@
 import { Component, OnInit,Injectable, inject, NgModule } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { RouterOutlet } from '@angular/router';
+import { RouterOutlet,RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { LoginService } from './services/login.service';
 
-interface Policy {
-  Id_policy: number;
-  Id_client: number;
-  Id_typePolicy: number;
-  Id_statusPolicy: number;
-  numPolicy: string;
-  startDatePolicy: Date;
-  endDatePolicy: Date;
-  amountPolicy: Date;
-}
 @Component({
   selector: 'app-root',
   templateUrl: './app.html',
   styleUrl: './app.css',
-  imports: [CommonModule, RouterOutlet],
+  imports: [CommonModule, RouterOutlet, RouterLink, MatToolbarModule, MatButtonModule],
   standalone: true,
 })
 
 @Injectable({providedIn: 'root'})
 
 export class App {
+
   private http = inject(HttpClient);
-   public _policy: Policy[] = [];
+ isAuthenticated$ ;
+  currentUser$ ;
 
-     ngOnInit() {
-    this.getPolicy();
+    constructor(private loginService: LoginService) {
+    this.isAuthenticated$ = this.loginService.isAuthenticated$;
+    this.currentUser$ = this.loginService.currentUser$;
+    }
+
+      logout(): void {
+    this.loginService.logout().subscribe({
+      next: () => console.log('Logout exitoso'),
+      error: err => console.error('Logout error:', err)
+    });
   }
 
-    getPolicy() {
-    this.http.get<Policy[]>('/api/policy').subscribe(
-      (result) => {
-        this._policy = result;
-      },
-      (error) => {
-        console.error(error);
-      }
-    );
-  }
 
   title = 'clientWee';
 

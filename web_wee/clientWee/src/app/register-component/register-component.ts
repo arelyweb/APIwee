@@ -1,5 +1,5 @@
 import { Component, OnInit ,inject} from '@angular/core';
-import { LoginService } from '../login.service';
+import { LoginService } from '../services/login.service';
 import { CommonModule } from '@angular/common'; // Required for ngFor etc. in standalone
 import { ReactiveFormsModule, FormGroup, FormControl, Validators, FormBuilder , FormsModule} from '@angular/forms';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition,} from '@angular/material/snack-bar';
@@ -23,9 +23,9 @@ export class RegisterComponent implements OnInit {
     lastName: new FormControl(''),
     password: new FormControl(''),
   });
-  private _snackBar = inject(MatSnackBar);
-  horizontalPosition: MatSnackBarHorizontalPosition = 'start';
-  verticalPosition: MatSnackBarVerticalPosition = 'bottom';
+  private _msg = inject(MatSnackBar);
+  horizontalPosition: MatSnackBarHorizontalPosition = 'center';
+  verticalPosition: MatSnackBarVerticalPosition = 'top';
   constructor(public _loginService: LoginService,
     private _fb: FormBuilder
   ) { }
@@ -48,17 +48,18 @@ export class RegisterComponent implements OnInit {
       this._loginService.createUser(this.users).subscribe({
         next: (data) => {
            this.myGroup.reset();
-          this.openSnackBar();
+          this.openMsg('Usuario registrado');
         },
         error: (err) => {
           console.error('Error fetching users:', err);
+           this.openMsg('No se ha registrado');
         }
       });
     }
   }
 
-  openSnackBar() {
-    this._snackBar.open('Usuario registrado', 'Cerrar', {
+  openMsg(msj: string) {
+    this._msg.open(msj, 'Cerrar', {
       horizontalPosition: this.horizontalPosition,
       verticalPosition: this.verticalPosition,
     });

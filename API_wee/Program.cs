@@ -63,6 +63,17 @@ namespace API_wee
                     };
                 });
 
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowFrontend", policy =>
+                {
+                    policy.WithOrigins("http://localhost:4200") // la URL de tu Angular
+                          .AllowAnyHeader()
+                          .AllowAnyMethod()
+                          .AllowCredentials();
+                });
+            });
+
             // Authorization: puedes añadir políticas si quieres
             builder.Services.AddAuthorization(options =>
             {
@@ -70,9 +81,10 @@ namespace API_wee
             });
 
             builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddControllers();
 
             var app = builder.Build();
-
+            app.UseCors("AllowFrontend");
             // Configure the HTTP request pipeline.
             app.UseHttpsRedirection();
             app.UseAuthentication();

@@ -1,4 +1,4 @@
-<mat-card style="max-width:400px;margin:24px auto;padding:16px">
+<!-- <mat-card style="max-width:400px;margin:24px auto;padding:16px">
       <h2>Login system</h2>
       <form [formGroup]="form" (ngSubmit)="submit()">
         <mat-form-field appearance="fill" style="width:100%">
@@ -17,4 +17,40 @@
       </form>
       <a href="/register">Register</a>
 
+    </mat-card> -->
+
+      <mat-card style="max-width: 400px; margin: 50px auto; padding: 24px;">
+      <h2>Iniciar sesión</h2>
+      <form [formGroup]="myGroupLogin" (ngSubmit)="submit()">
+        <mat-form-field appearance="fill" style="width: 100%;">
+          <mat-label>Usuario</mat-label>
+          <input matInput formControlName="userName" type="text" />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" style="width: 100%; margin-top: 16px;">
+          <mat-label>Contraseña</mat-label>
+          <input matInput formControlName="password" type="password" />
+        </mat-form-field>
+        @if(errorMessage){
+            <div  style="color: red; margin-top: 12px;">
+            {{ errorMessage }}
+            </div>
+        }
+        <div style="text-align: right; margin-top: 20px;">
+          <button
+            mat-raised-button
+            color="primary"
+            type="submit"
+            [disabled]="myGroupLogin.invalid || isLoading"
+          >
+            @if (!isLoading) {
+              <span >Entrar</span>
+            } 
+            @if (isLoading) {
+              <mat-spinner diameter="20"></mat-spinner> 
+            } 
+          </button>
+        </div>
+      </form>
+        <a href="/register">Register</a>
     </mat-card>
