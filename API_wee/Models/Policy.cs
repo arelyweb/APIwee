@@ -10,9 +10,9 @@ namespace API_wee.Models
         public short Id_client { get; set; }
         public short Id_typePolicy { get; set; }
         public short id_statusPolicy { get; set; }
-        public string? numPolicy { get; set; }
-        public DateTime? startDatePolicy { get; set; }
-        public DateTime? endDatePolicy { get; set; }
-        public double? amountPolicy { get; set; }
+        public string numPolicy { get; set; } = string.Empty;
+        public DateTime startDatePolicy { get; set; } 
+        public DateTime endDatePolicy { get; set; }
+        public double amountPolicy { get; set; }
     }
 }

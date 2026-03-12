@@ -1,6 +1,9 @@
 ﻿using API_wee.Models;
+using API_wee.Repositories;
+using API_wee.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -10,31 +13,38 @@ namespace API_wee.Controllers
     [ApiController]
     public class PolicyController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
-        public PolicyController(ApplicationDbContext context)
+        private readonly IPolicyService _policyService;
+        public PolicyController( IPolicyService policyService)
         {
-            _context = context;
+            _policyService = policyService;
         }
         // GET: api/<PolicyController>
         [HttpGet]
-        public IEnumerable<Policy> Get()
+        public void Get()
         {
-            
-            var res= _context.Policy.Where(p=> p.Id_policy == 1).ToList();
-            return res;
+          
         }
 
         // GET api/<PolicyController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public Task<IActionResult> GetPolicyById(int id)
         {
-            return "value";
+            //obtener la poliza por id
+            var policy = _policyService.GetByIdAsync(id);
+            if (policy == null) return Task.FromResult<IActionResult>(NotFound("Poliza no encontrada."));
+
+            return Task.FromResult<IActionResult>(Ok(policy));
+
         }
 
         // POST api/<PolicyController>
-        [HttpPost]
-        public void Post([FromBody] string value)
+        [HttpPost("create")]
+        public async Task<IActionResult> Create([FromBody] Policy value)
         {
+            //guardar poliza
+            var created =  await _policyService.CreatePolicyAsync(value.Id_client, value.Id_typePolicy, value.id_statusPolicy, value.numPolicy, value.startDatePolicy, value.endDatePolicy, value.amountPolicy);
+            return CreatedAtAction(nameof(Create), new { id = created.Id_policy }, created);
+
         }
 
         // PUT api/<PolicyController>/5

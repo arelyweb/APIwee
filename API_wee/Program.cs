@@ -31,10 +31,11 @@ namespace API_wee
             // Add the DbContext service to the dependency injection container
             var conn = builder.Configuration.GetConnectionString("DefaultConnection");
             builder.Services.AddDbContext<AppDbContext>(options =>
-                options.UseSqlServer(conn)); 
-
+                options.UseSqlServer(conn));
+         
             builder.Services.AddScoped<IUserService, UserService>();
-
+            builder.Services.AddScoped<IPolicyService, PolicyService>();
+            builder.Services.AddScoped<IClientService, ClientService>();
             builder.Services.AddSingleton<ITokenService, TokenService>();
             builder.Services.AddSingleton<IRefreshTokenRepository, InMemoryRefreshTokenRepository>();
 

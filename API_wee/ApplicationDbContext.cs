@@ -14,5 +14,6 @@ namespace API_wee
         // DbSet properties represent tables in the database
         public DbSet<ApplicationUser> User { get; set; }
         public DbSet<Policy> Policy { get; set; }
+        public DbSet<Client> Client { get; set; }    
     }
 }
