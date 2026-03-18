@@ -14,26 +14,35 @@ namespace API_wee.Controllers
     public class PolicyController : ControllerBase
     {
         private readonly IPolicyService _policyService;
-        public PolicyController( IPolicyService policyService)
+        private readonly IClientService _clientService;
+        public PolicyController( IPolicyService policyService, IClientService clientService)
         {
             _policyService = policyService;
+            _clientService = clientService;
         }
         // GET: api/<PolicyController>
-        [HttpGet]
-        public void Get()
+        [HttpGet("client/{id}")]
+        public async Task<IActionResult> GetClientById(int id)
         {
-          
+          var client = await _clientService.GetClientByIdAsync(id);
+            if (client == null) return NotFound();
+            return Ok(client);
         }
-
+        // GET: api/<PolicyController>
+        [HttpGet("client")]
+        public async Task<IActionResult> GetClient()
+        {
+            var client = await _clientService.GetClientAsync();
+            if (client == null) return NotFound();
+            return Ok(client);
+        }
         // GET api/<PolicyController>/5
         [HttpGet("{id}")]
-        public Task<IActionResult> GetPolicyById(int id)
+        public async Task<IActionResult> GetPolicyById(int id)
         {
-            //obtener la poliza por id
-            var policy = _policyService.GetByIdAsync(id);
-            if (policy == null) return Task.FromResult<IActionResult>(NotFound("Poliza no encontrada."));
-
-            return Task.FromResult<IActionResult>(Ok(policy));
+            var policy = await _policyService.GetPolicyByIdAsync(id);
+            if (policy == null) return NotFound();
+            return Ok(policy);
 
         }
 

@@ -1,5 +1,7 @@
 ﻿using API_wee.Data;
 using API_wee.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace API_wee.Services
 {
@@ -12,7 +14,7 @@ namespace API_wee.Services
             _db = db;
         }
         // Crea policy
-        public async Task<Policy> CreatePolicyAsync(short id_client, short id_typePolicy, short id_statusPolicy, string numPolicy, DateTime startDate, DateTime endDate, double amount )
+        public async Task<Policy> CreatePolicyAsync(int id_client, int id_typePolicy, int id_statusPolicy, string numPolicy, DateTime startDate, DateTime endDate, double amount )
         {
             var policy = new Policy
             {
@@ -32,7 +34,7 @@ namespace API_wee.Services
         }
 
         //Obtiene la poliza por id
-        public async Task<Policy?> GetByIdAsync(int id)
+        public async Task<Policy?> GetPolicyByIdAsync(int id)
         {
             return await _db.Policy.FindAsync(id);
         }

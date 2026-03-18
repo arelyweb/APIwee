@@ -4,6 +4,7 @@ namespace API_wee.Services
 {
     public interface IClientService
     {
-          Task<Client?> GetByIdAsync(int id);
+          Task<Client?> GetClientByIdAsync(int id);
+        Task<IEnumerable<Client?>> GetClientAsync();
     }
 }

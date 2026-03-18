@@ -26,7 +26,7 @@ namespace API_wee.Models
             public string country { get; set; } = null!;
 
             [Column("genreClient")]
-            public string genre { get; set; } = null!;
+            public bool genre { get; set; } = false;
 
             [Column("emailClient")]
             public string email { get; set; } = null!;
